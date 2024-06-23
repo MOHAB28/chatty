@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410623764217",
+    "project_id": "chat-bb818",
+    "storage_bucket": "chat-bb818.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410623764217:android:fa1538f0d60f17568da428",
+        "android_client_info": {
+          "package_name": "com.mohabbb.chatty"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAesatCmCxoFW4DzVR_aTqwm0NO6qtKnZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
