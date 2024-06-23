@@ -4,17 +4,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseServiceImpl extends DatabaseService {
   final FirebaseFirestore _firestore;
-
   DatabaseServiceImpl(this._firestore);
+
   @override
   Stream<List<Map<String, dynamic>>> getMessages(
-    String senderId,
-    String receiverId,
+    GetMessageData getMessageData,
   ) {
     return _firestore
         .collection('messages')
-        .where('senderId', isEqualTo: senderId)
-        .where('receiverId', isEqualTo: receiverId)
+        .where('senderId', isEqualTo: getMessageData.senderId)
+        .where('receiverId', isEqualTo: getMessageData.receiverId)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -29,15 +28,11 @@ class DatabaseServiceImpl extends DatabaseService {
   }
 
   @override
-  Future<void> sendMessage(
-    String senderId,
-    String receiverId,
-    String text,
-  ) async {
+  Future<void> sendMessage(SendMessageData sendMessageData) async {
     await _firestore.collection('messages').add({
-      'text': text,
-      'senderId': senderId,
-      'receiverId': receiverId,
+      'text': sendMessageData.text,
+      'senderId': sendMessageData.senderId,
+      'receiverId': sendMessageData.receiverId,
       'timestamp': Timestamp.now(),
     });
   }

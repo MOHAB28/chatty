@@ -20,24 +20,23 @@ final authServiceProvider = Provider.autoDispose<AuthService>(
 class AuthServiceImpl extends AuthService {
   final FirebaseAuth _auth;
   final FirebaseFirestore _firestore;
-
   AuthServiceImpl(this._auth, this._firestore);
 
   @override
-  Future<User?> registerWithEmailPassword(
-    String name,
-    String email,
-    String password,
-  ) async {
+  Future<User?> registerWithEmailPassword(RegisterData registerData) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: registerData.email,
+        password: registerData.password,
       );
       User? user = result.user;
 
       if (user != null) {
-        UserModel newUser = UserModel(uid: user.uid, name: name, email: email);
+        UserModel newUser = UserModel(
+          uid: user.uid,
+          name: registerData.name,
+          email: registerData.email,
+        );
         await _firestore.collection('users').doc(user.uid).set(newUser.toMap());
       }
 
@@ -48,11 +47,11 @@ class AuthServiceImpl extends AuthService {
   }
 
   @override
-  Future<User?> signInWithEmailPassword(String email, String password) async {
+  Future<User?> signInWithEmailPassword(SignInData signInData) async {
     try {
       UserCredential result = await _auth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: signInData.email,
+        password: signInData.password,
       );
       return result.user;
     } catch (e) {
