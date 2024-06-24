@@ -69,5 +69,5 @@ class AuthServiceImpl extends AuthService {
   }
 
   @override
-  Stream<User?> get user => _auth.authStateChanges();
+  User? get authStateChanges => _auth.currentUser;
 }

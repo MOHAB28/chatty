@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 abstract class AuthService {
-  Stream<User?> get user;
+  User? get authStateChanges;
   Future<User?> signInWithEmailPassword(SignInData signInData);
   Future<User?> registerWithEmailPassword(RegisterData registerData);
   Future<void> signOut();
