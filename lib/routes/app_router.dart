@@ -17,7 +17,13 @@ class AppRouter {
             builder: (_) => const StartupView(),
           ),
         AppRoutesName.chatView => MaterialPageRoute(
-            builder: (_) => const ChatView(),
+            builder: (_) {
+              final Map<String,dynamic> user = settings.arguments as Map<String,dynamic>;
+              return  ChatView(
+                userId: user['userId'],
+                userName: user['userName'],
+              );
+            },
           ),
         AppRoutesName.authView => MaterialPageRoute(
             builder: (_) => const AuthView(),

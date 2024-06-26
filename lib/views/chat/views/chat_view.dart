@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ChatView extends StatelessWidget {
-  const ChatView({super.key});
+  final String userId;
+  final String userName;
+  const ChatView({
+    super.key,
+    required this.userId,
+    required this.userName,
+  });
 
   @override
   Widget build(BuildContext context) {

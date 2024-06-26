@@ -7,7 +7,6 @@ import 'package:chatty/views/auth/view_models/auth_view_model.dart';
 import 'package:chatty/views/widgets/button_widget.dart';
 import 'package:chatty/views/widgets/text_form_field_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AuthView extends ConsumerWidget {

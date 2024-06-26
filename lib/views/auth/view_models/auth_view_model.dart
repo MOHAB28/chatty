@@ -45,6 +45,12 @@ class AuthAction extends AutoDisposeAsyncNotifier<void> {
     );
   }
 
+  Future<void> logout() async {
+    await _performAuthAction(
+      () => ref.read(authServiceProvider).signOut(),
+    );
+  }
+
   Future<void> _performAuthAction(Future<void> Function() authAction) async {
     state = const AsyncValue.loading();
     try {
