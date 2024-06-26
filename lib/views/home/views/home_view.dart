@@ -74,7 +74,7 @@ class HomeView extends StatelessWidget {
               }
               return ListView.separated(
                 itemCount: allUsers.length,
-                separatorBuilder: (context, index) => const SizedBox(),
+                separatorBuilder: (_, __) => const SizedBox(),
                 itemBuilder: (context, index) {
                   UserModel currentUser = allUsers[index];
                   return ListTile(

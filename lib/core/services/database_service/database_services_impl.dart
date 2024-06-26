@@ -20,10 +20,14 @@ class DatabaseServiceImpl extends DatabaseService {
   Stream<List<Map<String, dynamic>>> getMessages(
     GetMessageData getMessageData,
   ) {
+    List<String> ids = [getMessageData.senderId, getMessageData.receiverId];
+    ids.sort();
+    String chatRoomId = ids.join('_');
     return _firestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
         .collection('messages')
-        .where('senderId', isEqualTo: getMessageData.senderId)
-        .where('receiverId', isEqualTo: getMessageData.receiverId)
+        .orderBy('timestamp', descending: false)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) => doc.data()).toList();
@@ -44,11 +48,20 @@ class DatabaseServiceImpl extends DatabaseService {
 
   @override
   Future<void> sendMessage(SendMessageData sendMessageData) async {
-    await _firestore.collection('messages').add({
-      'text': sendMessageData.text,
-      'senderId': sendMessageData.senderId,
-      'receiverId': sendMessageData.receiverId,
-      'timestamp': Timestamp.now(),
-    });
+    List<String> ids = [sendMessageData.senderId, sendMessageData.receiverId];
+    ids.sort();
+    String chatRoomId = ids.join('_');
+    await _firestore
+        .collection('chat_rooms')
+        .doc(chatRoomId)
+        .collection('messages')
+        .add(
+      {
+        'text': sendMessageData.text,
+        'senderId': sendMessageData.senderId,
+        'receiverId': sendMessageData.receiverId,
+        'timestamp': Timestamp.now(),
+      },
+    );
   }
 }
